@@ -11,14 +11,21 @@ public class Book {
         this.yearPublished = yearPublished;
         this.price = price;
         this.isPaperback = isPaperback;
+        
+        // Use validity methods during construction
+        validateBookDetails();
     }
 
+    // Getter and Setter methods
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+        if (!isTitleValid()) {
+            System.out.println("Invalid title!");
+        }
     }
 
     public String getAuthor() {
@@ -27,6 +34,9 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+        if (!isAuthorValid()) {
+            System.out.println("Invalid author!");
+        }
     }
 
     public int getYearPublished() {
@@ -35,6 +45,9 @@ public class Book {
 
     public void setYearPublished(int yearPublished) {
         this.yearPublished = yearPublished;
+        if (!isYearPublishedValid()) {
+            System.out.println("Invalid year published!");
+        }
     }
 
     public double getPrice() {
@@ -43,6 +56,9 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
+        if (!isPriceValid()) {
+            System.out.println("Invalid price!");
+        }
     }
 
     public boolean isPaperback() {
@@ -53,13 +69,19 @@ public class Book {
         this.isPaperback = isPaperback;
     }
 
+    // Method to print book details
     public void printBookDetails() {
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("Year Published: " + yearPublished);
-        System.out.println("Price: $" + price);
+        if (validateBookDetails()) {
+            System.out.println("Title: " + title);
+            System.out.println("Author: " + author);
+            System.out.println("Year Published: " + yearPublished);
+            System.out.println("Price: $" + price);
+        } else {
+            System.out.println("Cannot print book details. Some fields are invalid.");
+        }
     }
 
+    // Validity checks
     public boolean isPriceValid() {
         return price > 0;
     }
@@ -74,5 +96,32 @@ public class Book {
 
     public boolean isYearPublishedValid() {
         return yearPublished > 0;
+    }
+
+    // General validation method that checks all fields
+    private boolean validateBookDetails() {
+        boolean isValid = true;
+        
+        if (!isTitleValid()) {
+            System.out.println("Invalid title!");
+            isValid = false;
+        }
+
+        if (!isAuthorValid()) {
+            System.out.println("Invalid author!");
+            isValid = false;
+        }
+
+        if (!isYearPublishedValid()) {
+            System.out.println("Invalid year published!");
+            isValid = false;
+        }
+
+        if (!isPriceValid()) {
+            System.out.println("Invalid price!");
+            isValid = false;
+        }
+
+        return isValid;
     }
 }
